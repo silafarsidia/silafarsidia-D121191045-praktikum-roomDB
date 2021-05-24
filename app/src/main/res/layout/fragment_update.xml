@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.add.AddFragment"
+    tools:context=".fragments.update.UpdateFragment"
     android:padding="24dp">
 
     <EditText
-        android:id="@+id/addNoteTitle_et"
+        android:id="@+id/updateNoteTitle_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/addNoteDesc_et"
+        android:id="@+id/updateNoteDesc_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -33,23 +33,25 @@
         android:gravity="start|top"
         android:hint="Type your note here ..."
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/add_btn"
+        app:layout_constraintBottom_toTopOf="@+id/update_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNoteTitle_et" />
+        app:layout_constraintTop_toBottomOf="@+id/updateNoteTitle_et" />
 
     <Button
-        android:id="@+id/add_btn"
+        android:id="@+id/update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="72dp"
         android:width="350dp"
-        android:text="Add"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNoteDesc_et" />
+        app:layout_constraintTop_toBottomOf="@+id/updateNoteTitle_et"
+        app:layout_constraintVertical_bias="0.989" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

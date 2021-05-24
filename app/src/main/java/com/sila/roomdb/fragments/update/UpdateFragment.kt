@@ -1,4 +1,4 @@
-package com.sila.roomdb.fragments.add
+package com.sila.roomdb.fragments.update
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.sila.roomdb.R
 import com.sila.roomdb.model.Note
 import com.sila.roomdb.viewmodel.NoteViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
+import kotlinx.android.synthetic.main.fragment_update.*
+import kotlinx.android.synthetic.main.fragment_update.view.*
 
-class AddFragment : Fragment() {
+class UpdateFragment : Fragment() {
+
+    private val args by navArgs<UpdateFragmentArgs>()
     private lateinit var mNoteViewModel: NoteViewModel
 
     override fun onCreateView(
@@ -23,33 +26,35 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_add, container, false)
+        val view =  inflater.inflate(R.layout.fragment_update, container, false)
 
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
-        view.add_btn.setOnClickListener {
-            insertDataToDatabase()
+        view.updateNoteTitle_et.setText(args.currentNote.noteTitle)
+        view.updateNoteDesc_et.setText(args.currentNote.noteDesc)
+
+        view.update_btn.setOnClickListener {
+
         }
 
         return view
     }
 
-    private fun insertDataToDatabase() {
-        val noteTitle = addNoteTitle_et.text.toString()
-        val noteDesc = addNoteDesc_et.text.toString()
+    private fun updateItem(){
+        val noteTitle = updateNoteTitle_et.text.toString()
+        val noteDesc = updateNoteDesc_et.text.toString()
 
         if(inputCheck(noteTitle, noteDesc)){
             // Create Note Object
-            val note = Note(0, noteTitle, noteDesc)
-            // Add Data to Database
-            mNoteViewModel.addNote(note)
-            Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_SHORT).show()
-            // Navigate Back
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        }else{
+            val updateNote = Note(args.currentNote.id, noteTitle, noteDesc)
+            // Updated User
+            mNoteViewModel.updateNote(updateNote)
+            Toast.makeText(requireContext(), "Note Updated Successfully!", Toast.LENGTH_SHORT).show()
+            // Navigate back to list fragment
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        } else {
             Toast.makeText(requireContext(), "Fill out Empty Fields!", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun inputCheck(noteTitle: String, noteDesc: String): Boolean{

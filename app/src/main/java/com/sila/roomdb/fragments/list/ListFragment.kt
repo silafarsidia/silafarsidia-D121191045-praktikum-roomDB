@@ -9,9 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.sila.roomdb.R
-import com.sila.roomdb.data.NoteViewModel
+import com.sila.roomdb.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
@@ -29,7 +28,8 @@ class ListFragment : Fragment() {
         val adapter = ListAdapter()
         val recyclerView = view.recyclerview
         recyclerView.adapter = adapter
-        //recyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //LinearLayoutManager(requireContext())
 
         // Note ViewModel
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
