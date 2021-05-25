@@ -1,11 +1,10 @@
 package com.sila.roomdb.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -37,6 +36,8 @@ class UpdateFragment : Fragment() {
 
         }
 
+        setHasOptionsMenu(true)
+
         return view
     }
 
@@ -59,5 +60,31 @@ class UpdateFragment : Fragment() {
 
     private fun inputCheck(noteTitle: String, noteDesc: String): Boolean{
         return !(TextUtils.isEmpty(noteTitle) && TextUtils.isEmpty(noteDesc))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_delete){
+            deleteNote()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteNote() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mNoteViewModel.deleteNote(args.currentNote)
+            Toast.makeText(requireContext(), "Successfully removed ${args.currentNote.noteTitle}!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No") { _, _ ->
+
+        }
+        builder.setTitle("Delete ${args.currentNote.noteTitle}?")
+        builder.setMessage("Are you sure want to delete ${args.currentNote.noteTitle}?")
+        builder.create().show()
     }
 }

@@ -15,4 +15,12 @@ class NoteRepository(private val noteDao: NoteDao) { //class abstracts access to
     suspend fun updateNote(note: Note){
         noteDao.updateNote(note)
     }
+
+    suspend fun deleteNote(note: Note){
+        noteDao.deleteNote(note)
+    }
+
+    suspend fun deleteAllNotes(){
+        noteDao.deleteAllNotes()
+    }
 }
