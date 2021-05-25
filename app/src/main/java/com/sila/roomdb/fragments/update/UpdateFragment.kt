@@ -33,7 +33,7 @@ class UpdateFragment : Fragment() {
         view.updateNoteDesc_et.setText(args.currentNote.noteDesc)
 
         view.update_btn.setOnClickListener {
-
+            updateItem()
         }
 
         setHasOptionsMenu(true)
@@ -47,9 +47,9 @@ class UpdateFragment : Fragment() {
 
         if(inputCheck(noteTitle, noteDesc)){
             // Create Note Object
-            val updateNote = Note(args.currentNote.id, noteTitle, noteDesc)
-            // Updated User
-            mNoteViewModel.updateNote(updateNote)
+            val updatedNote = Note(args.currentNote.id, noteTitle, noteDesc)
+            // Update User
+            mNoteViewModel.updateNote(updatedNote)
             Toast.makeText(requireContext(), "Note Updated Successfully!", Toast.LENGTH_SHORT).show()
             // Navigate back to list fragment
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
